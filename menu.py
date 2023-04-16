@@ -1,7 +1,16 @@
 import pygame
+#from  room_location import Room
 
 # Инициализация Pygame
 pygame.init()
+
+# создание экрана 
+#screen = pygame.display.set_mode((1280, 720))
+
+#def start_game():
+    #room = Room(screen)
+    #room.display()
+
 
 # задний фон меню
 background = pygame.image.load('graphic/back.jpg')
@@ -56,6 +65,7 @@ def display_main_menu(screen, width, height):
     play_button_rect = pygame.Rect(button_x, play_button_y, button_width, button_height)
     if play_button_rect.collidepoint(mouse_position):
         play_text_colored = font.render('Play', True, highlight_color)
+
     else:
         play_text_colored = font.render('Play', True, (0, 0, 0))
     screen.blit(play_text_colored, (play_text_x, play_text_y))

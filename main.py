@@ -35,4 +35,4 @@ while True:
     menu.display_main_menu(screen, default_width, default_height)
 
     # обновление экрана
-    pygame.display.update()            
+    pygame.display.update()
