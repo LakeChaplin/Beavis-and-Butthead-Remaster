@@ -1,4 +1,5 @@
-import pygame 
+import pygame
+import menu
 
 # инициализация pygame 
 pygame.init()
@@ -30,5 +31,8 @@ while True:
             raise SystemExit
         
 
-    # обнавление экрана
+    # отбражение главного меню
+    menu.display_main_menu(screen, default_width, default_height)
+
+    # обновление экрана
     pygame.display.update()            
