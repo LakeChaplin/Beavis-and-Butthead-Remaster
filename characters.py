@@ -18,9 +18,19 @@ class Character:
         self.is_jumping = False
         self.action_key = False
         self.image = pygame.image.load(image_path)
+        self.fliped_image = pygame.transform.flip(self.image, True, False)
+        self.fliped = False
     # функция отрисокви персонажа
     def draw(self, screen):
-        pygame.draw.rect(screen, self.color, pygame.Rect(self.x, self.y, self.width, self.height))
+        if self.fliped:
+            screen.blit(self.fliped_image, (self.x, self.y))
+        else:
+            screen.blit(self.image, (self.x, self.y))
+
+    
+    # Фунция, разворачивающая персонажа по оси x
+    def flip(self):
+        self.fliped = not self.fliped
     
     # функция, отвечающая за передвижение персонажей
     def move(self, dx, dy):
@@ -62,9 +72,7 @@ class Beavis(Character):
     def __init__(self, x, y):
         super().__init__(x, y, 36, 72, (100, 100, 100), 100, 100, 'graphic/beavis_image.png')
         self.image = pygame.image.load('graphic/beavis_image.png')
-
-    def draw(self, screen):
-        screen.blit(self.image, (self.x, self.y))
+    
 
     def move(self, dx, dy):
         self.x += dx
@@ -78,9 +86,6 @@ class Butthead(Character):
     def __init__(self, x, y):
         super().__init__(x, y, 36, 72, (150, 150, 150), 100, 100, 'graphic/butthead_image.png')
         self.image = pygame.image.load('graphic/butthead_image.png')
-
-    def draw(self, screen):
-        screen.blit(self.image, (self.x, self.y))
 
     def move(self, dx, dy):
         self.x += dx

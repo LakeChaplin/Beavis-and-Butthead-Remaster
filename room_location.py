@@ -7,7 +7,7 @@ class Room:
         self.screen = screen
         self.background_image = pygame.image.load(background_image)
         self.beavis = Beavis(100, 100)
-        #self.butthead = Butthead(100, 100)
+        self.butthead = Butthead(200, 200)
 
         # координаты персонажей
         self.beavis_x = 100
@@ -28,10 +28,8 @@ class Room:
         self.screen.blit(self.background_image, (0, 0))
 
         # Отображение персонажей
-        #pygame.draw.rect(self.screen, self.beavis_color, pygame.Rect(self.beavis_x, self.beavis_y, self.player_width, self.player_height))
-        #pygame.draw.rect(self.screen, self.butthead_color, pygame.Rect(self.butthead_x, self.butthead_y, self.player_width, self.player_height))
         self.beavis.draw(self.screen)
-        #self.butthead.draw(self.screen)
+        self.butthead.draw(self.screen)
     def update(self):
         # Обновление персонажей(пока не используется)
         pass

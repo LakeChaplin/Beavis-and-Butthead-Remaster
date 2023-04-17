@@ -2,15 +2,14 @@ import pygame
 import menu
 from room_location import Room
 
-
-# инициализация pygame 
+# инициализация pygame
 pygame.init()
 
 # расширение по умолчанию
 default_width = 1280
 default_height = 720
 
-# создание экрана 
+# создание экрана
 screen = pygame.display.set_mode((default_width, default_height))
 
 # установка заголовка экрана (название игры)
@@ -26,7 +25,7 @@ game_state = "main_menu"
 # создание объекта комнаты
 room = Room(screen, 'graphic/Room(alpha).png')
 
-# кнопки управления персонажамми 
+# кнопки управления персонажами
 keys = {
     "left": False,
     "right": False,
@@ -34,10 +33,11 @@ keys = {
     "down": False
 }
 
+active_character = room.beavis
 
 # главный цикл игры
 while True:
-    # обработчик событий 
+    # обработчик событий
     events = pygame.event.get()
     for event in events:
         if event.type == pygame.QUIT:
@@ -62,7 +62,16 @@ while True:
                 keys["up"] = False
             elif event.key == pygame.K_DOWN:
                 keys["down"] = False
-        
+
+            elif event.key == pygame.K_z:
+                active_character.flip()
+
+            elif event.key == pygame.K_TAB:
+                if active_character == room.beavis:
+                    active_character = room.butthead
+                else:
+                    active_character = room.beavis
+
     if game_state == "main_menu":
         # отображение главного меню
         next_state = menu.display_main_menu(screen, default_width, default_height, events)
@@ -72,13 +81,17 @@ while True:
         dx, dy = 0, 0
         if keys["left"]:
             dx = -1
+            if not active_character.fliped:
+                active_character.flip()
         if keys["right"]:
             dx = 1
+            if active_character.fliped:
+                active_character.flip()
         if keys["up"]:
             dy = -1
         if keys["down"]:
             dy = 1
-        room.beavis.move(dx, dy)
+        active_character.move(dx, dy)
         room.display()
 
     # обновление экрана
