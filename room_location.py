@@ -1,5 +1,6 @@
 import pygame
 from characters import Beavis, Butthead
+from levels_geometry import Platform
 
 ### Инициация класса комнаты Бивиса и Баттхеда"""
 class Room:
@@ -8,30 +9,22 @@ class Room:
         self.background_image = pygame.image.load(background_image)
         self.beavis = Beavis(100, 100)
         self.butthead = Butthead(200, 200)
-
-        # координаты персонажей
-        self.beavis_x = 100
-        self.beavis_y = 100
-        self.butthead_x = 100
-        self.butthead_y = 100
-
-        # размеры персонажей в локации
-        self.player_width = 50
-        self.player_height = 50
-
-        # цвет персонажей (!ЗАМЕНИТЬ НА АНИМАЦИИ!)
-        self.beavis_color = (100, 100, 100)
-        self.butthead_color = (150, 150, 150)
+        
+        # Создание геометрии пола в комнате (пока только пола) 
+        self.platforms = [
+            Platform(0, 500, 1280, 20, (255, 255, 255))
+        ]
 
     def display(self):
         # Отображение фона комнаты
         self.screen.blit(self.background_image, (0, 0))
 
+        # Отображение платформы 
+        for platform in self.platforms:
+            platform.draw(self.screen)
+
         # Отображение персонажей
         self.beavis.draw(self.screen)
         self.butthead.draw(self.screen)
-    def update(self):
-        # Обновление персонажей(пока не используется)
-        pass
 
 

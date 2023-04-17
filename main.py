@@ -1,6 +1,7 @@
 import pygame
 import menu
 from room_location import Room
+from levels_geometry import Platform
 
 # инициализация pygame
 pygame.init()
@@ -62,21 +63,25 @@ while True:
                 keys["up"] = False
             elif event.key == pygame.K_DOWN:
                 keys["down"] = False
-
             elif event.key == pygame.K_z:
                 active_character.flip()
-
             elif event.key == pygame.K_TAB:
                 if active_character == room.beavis:
                     active_character = room.butthead
                 else:
                     active_character = room.beavis
+            elif event.key == pygame.K_SPACE:
+                active_character.jump()
+
+
 
     if game_state == "main_menu":
         # отображение главного меню
         next_state = menu.display_main_menu(screen, default_width, default_height, events)
+
         if next_state == "start_game":
             game_state = "gameplay"
+    # отображение самой игры (геймплей)        
     elif game_state == "gameplay":
         dx, dy = 0, 0
         if keys["left"]:
@@ -91,8 +96,15 @@ while True:
             dy = -1
         if keys["down"]:
             dy = 1
-        active_character.move(dx, dy)
+        active_character.move(dx, dy, room.platforms)
+        
+        active_character.update(room.platforms)
+        passive_character = room.beavis if active_character == room.butthead else room.butthead
+        passive_character.follow(active_character, 100, room.platforms)
+        passive_character.update(room.platforms)
+        
         room.display()
+
 
     # обновление экрана
     pygame.display.update()

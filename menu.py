@@ -6,9 +6,6 @@ from  room_location import Room
 background = pygame.image.load('graphic/back.jpg')
 
 
-
-
-
 ### Функция отображения главного меню ###
 def display_main_menu(screen, width, height, events):
     # Отрисовка фонового изображения
